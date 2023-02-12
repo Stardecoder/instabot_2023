@@ -19,3 +19,17 @@ def read_params(params_filepath):
         print(e)
         
     return params
+
+
+def map_hashtags_with_medias(client, hashtags_to_explore, params):
+    hashtags_medias_dict = dict()
+    
+
+    for h in hashtags_to_explore:
+        print('mapping medias for hashtag ', h, '...')
+        try:
+            hashtags_medias_dict[h] = client.hashtag_medias_recent(h, amount = params['max_posts_per_hashtag'][0])
+        except Exception as e:
+            print(e)
+        
+    return hashtags_medias_dict
