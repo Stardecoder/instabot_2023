@@ -4,7 +4,6 @@ Created on Sat Feb 11 19:52:52 2023
 
 @author: Nedjmeddine
 """
-
 import yaml
 from yaml.loader import SafeLoader
 
@@ -21,15 +20,43 @@ def read_params(params_filepath):
     return params
 
 
-def map_hashtags_with_medias(client, hashtags_to_explore, params):
+def map_hashtags_with_medias(client, hashtags_to_explore, params, recent = True):
     hashtags_medias_dict = dict()
     
 
     for h in hashtags_to_explore:
         print('mapping medias for hashtag ', h, '...')
         try:
-            hashtags_medias_dict[h] = client.hashtag_medias_recent(h, amount = params['max_posts_per_hashtag'][0])
+            if recent:
+                hashtags_medias_dict[h] = client.hashtag_medias_recent(h, amount = params['max_posts_per_hashtag'][0])
+            else:
+                hashtags_medias_dict[h] = client.hashtag_medias_top(h, amount = params['max_posts_per_hashtag'][0])
         except Exception as e:
             print(e)
         
     return hashtags_medias_dict
+
+
+
+
+
+"""
+Client key methods
+    media_like
+    media_comment
+    comment_like
+    
+    search_users
+    search_hashtags
+
+"""
+
+"""
+Media key attributes:
+    comment_count
+    like_count
+    view_count
+    caption_text
+    id
+
+"""
