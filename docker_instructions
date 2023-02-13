@@ -1,0 +1,4 @@
+
+
+3- TO RUN DOCKER CONTAINER:
+  docker run --mount type=bind,source="C://Users//params.yaml",target="/app/params.yaml" <IMAGE_ID>

@@ -1,0 +1,24 @@
+username : "YOUR USER NAME"
+password : "YOUR PASS WORD"
+
+hashtags : 
+    - "HASHTAG_1"
+    - "HASHTAG_2"
+    - "HASHTAG_3"
+    - "HASHTAG_4"
+    - "HASHTAG_5"
+
+min_max_time_between_two_likes :
+   - 10
+   - 90
+   
+min_max_likes_per_day:
+   - 40
+   - 100
+   
+min_max_comments_per_day:
+   - 10
+   - 20
+   
+max_posts_per_hashtag:
+   - 27
