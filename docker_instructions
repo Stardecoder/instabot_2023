@@ -1,4 +1,7 @@
-
+1- TO BUILD DOCKER IMAGE:
+  docker build instabot_2023 -t <REPO>:<VERSION>
+  
+2- FILL UP "params.yaml" 
 
 3- TO RUN DOCKER CONTAINER:
   docker run --mount type=bind,source="C://Users//params.yaml",target="/app/params.yaml" <IMAGE_ID>
