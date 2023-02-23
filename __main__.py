@@ -6,7 +6,7 @@ Created on Sat Feb 11 19:52:52 2023
 
 from utils_functions import read_params, connect_to_my_ig_account, map_hashtags_with_medias, collapse_hashtags_media_dict 
 from auto_browsing import generate_daily_session_params,  basic_daily_auto_browsing
-from stalking_functions import download_medias
+from stalking_functions import download_medias, stalk_profile, list_posts_of_profile
 import logging
 logging.basicConfig(level = logging.INFO)
 
@@ -37,3 +37,9 @@ if cl is not None:
     my_log.info("your daily session is done")
 else:
     my_log.error("Sorry bra, we could not connect you to IG")
+    
+    
+
+stalk_profile(cl, "<SOME_USERNAME>")
+
+posts = list_posts_of_profile(cl, "<SOME_USERNAME>")
