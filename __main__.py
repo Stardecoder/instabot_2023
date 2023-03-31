@@ -19,6 +19,11 @@ params = read_params(PARAMS_FILENAME)
 
 cl = connect_to_my_ig_account(params)
 
+
+stalked_profile = stalk_profile(cl, "star_shut", followers = True, followings = True)
+
+
+
 if cl is not None:
 
     #GENERATE DAILY PARAMS F
@@ -40,6 +45,5 @@ else:
     
     
 
-stalk_profile(cl, "<SOME_USERNAME>")
 
 posts = list_posts_of_profile(cl, "<SOME_USERNAME>")
