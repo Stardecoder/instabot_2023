@@ -6,7 +6,7 @@ Created on Sat Feb 11 19:52:52 2023
 
 from utils_functions import read_params, connect_to_my_ig_account, map_hashtags_with_medias, collapse_hashtags_media_dict 
 from auto_browsing import generate_daily_session_params,  basic_daily_auto_browsing
-from stalking_functions import download_medias, stalk_profile, list_posts_of_profile
+from stalking_functions import download_medias, stalk_profile, list_posts_of_profile, download_posts
 import logging
 logging.basicConfig(level = logging.INFO)
 
@@ -19,8 +19,16 @@ params = read_params(PARAMS_FILENAME)
 
 cl = connect_to_my_ig_account(params)
 
+username = "star_shut"
 
-stalked_profile = stalk_profile(cl, "star_shut", followers = True, followings = True)
+stalked_profile = stalk_profile(cl,username , followers = False, followings = True)
+
+
+posts = list_posts_of_profile(cl, username, max_nbr_posts = 10)
+
+
+download_posts(posts, cl, username, params, folder = "")
+ 
 
 
 

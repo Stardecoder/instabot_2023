@@ -44,9 +44,10 @@ def connect_to_my_ig_account(params):
         else:
             cl.login(params['username'], params['password'], verification_code = params['verification_code'])
             
+        #/!\ seems to trigger more LoginRequired Exceptions 
         #keep connection params for future connections
-        if not os.path.exists(session_path):
-            cl.dump_settings(session_path)
+        #if not os.path.exists(session_path):
+        #    cl.dump_settings(session_path)
             
         my_logger.info("logged in!")
         return cl

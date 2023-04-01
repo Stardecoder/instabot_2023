@@ -1,10 +1,10 @@
-# -*- coding: utf-8 -*-
 """
 Created on Thu Feb 16 20:17:45 2023
 
 @author: StarDecoder
 """
 import instagrapi
+from auto_browsing import wait_for_next_post_download 
 from datetime import datetime
 import os
 import json
@@ -104,13 +104,13 @@ def stalk_profile(cl, username, data_folder = "data_instabot_2023", followers = 
             json.dump(stalked_profile, f)
         return stalked_profile
 
+
 def get_id_from_username(cl, username):
     try:
         return cl.user_info_by_username(username).dict()['pk']
     except Exception as e:
         my_log.exception(e)
         return None
-
 
 
 def get_media_type(m):
@@ -125,14 +125,14 @@ def get_media_type(m):
     if m.media_type == 8: 
         return "album"
     
-    
+
 def list_posts_of_profile(cl, username, max_nbr_posts = MAX_POSTS_PER_PROFILE):        
 
     posts = dict()
     try:
-        user_id = cl.user_info_by_username(username).dict()['pk']
-        
-        medias = cl.user_medias(user_id, amount = MAX_POSTS_PER_PROFILE)
+        user_id = get_id_from_username(cl, username)
+    
+        medias = cl.user_medias_v1(user_id, amount = MAX_POSTS_PER_PROFILE)
         
         
         for m in medias:
@@ -146,4 +146,32 @@ def list_posts_of_profile(cl, username, max_nbr_posts = MAX_POSTS_PER_PROFILE):
     return posts
 
 
+def download_posts(posts, cl, username, params, folder = ""):
+    '''
+    download list of posts fetched by function list_posts_of_profile
+    handles only photos and videos
+    '''
+    if folder == "":
+        folder = os.path.join("data_instabot_2023", "profiles", username)
+    
+    for k in posts.keys():
+        p = posts[k]
+        try:
+            if p['post_type'] == "photo":
+                cl.photo_download(p['pk'], folder = folder)
+                my_log.info("post photo downloaded at " +  folder)
+            elif p['post_type'] =="video":
+                cl.video_download(p['pk'], folder = folder)
+                my_log.info("video photo downloaded at " +  folder)
+            elif p['post_type'] =="album":
+                cl.album_download(p['pk'], folder = folder)
+                my_log.info("post album downloaded at " +  folder)
+        except instagrapi.exceptions.LoginRequired:
+            my_log.error("\n\n\n oups we got caught by Instagram it's better to stop mate \n\n\n")
+            return 
+        except Exception as e:
+            my_log.exception(e)
+        
+        wait_for_next_post_download(params)
+            
 
